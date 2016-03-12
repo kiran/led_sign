@@ -7,10 +7,13 @@ class SignClient:
         self.glyphs_path = glyphs_path
         self.lowlevel_path = lowlevel_path
 #-------------------------------------------------------------------------------
-    def send_text_to_sign(self, lines):
+    def send_text_to_sign(self, messages):
         font = sign_font(self.glyphs_path)
 
-        matrix = font.render_multiline(
+        texts_for_sign = []
+
+        for lines in messages:
+          matrix = font.render_multiline(
                     lines,
                     LEDSign.SCREEN_HEIGHT / 2,
                     {
@@ -19,10 +22,12 @@ class SignClient:
                         }
                     )
 
-        if not matrix:
-            return False
+          if not matrix:
+              return False
 
-        text_for_sign = Array().zero_one(matrix)
+          texts_for_sign.append(Array().zero_one(matrix))
+
+	text_for_sign = '\n\n'.join(texts_for_sign)
 
         # View matrix rendering of text
         #print text_for_sign

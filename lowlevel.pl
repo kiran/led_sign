@@ -16,7 +16,7 @@ my $sign=Device::MiniLED->new(devicetype => "sign");
 
 my $type = 'text';
 my $speed = 1;
-my $effect = 'scroll';
+my $effect = 'hold';
 
 my $options_result = GetOptions(
   'type=s' => \$type,
